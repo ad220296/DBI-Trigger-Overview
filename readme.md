@@ -1,5 +1,5 @@
 
-# 🔄 Vergleich & Beispiele: Trigger in PL/SQL (DBI-Doku)
+# 🔄 Vergleich & Beispiele: Trigger in PL/SQL
 
 ---
 
