@@ -17,6 +17,24 @@ Es gibt verschiedene Trigger-Arten:
 
 ---
 
+## ⏰ Trigger-Zeitpunkte in PL/SQL: BEFORE, AFTER, INSTEAD OF
+
+Trigger in PL/SQL können zu verschiedenen **Zeitpunkten** im Ablauf eines DML-Befehls ausgelöst werden. Diese bestimmen, **wann genau** der Trigger im Vergleich zur SQL-Aktion ausgeführt wird.
+
+### 📌 Übersicht der Zeitpunkte
+
+| Schlüsselwort     | Beschreibung                                                                 |
+|-------------------|-------------------------------------------------------------------------------|
+| `BEFORE`          | Wird **vor** dem Einfügen, Aktualisieren oder Löschen ausgeführt             |
+| `AFTER`           | Wird **nach** dem Einfügen, Aktualisieren oder Löschen ausgeführt            |
+| `INSTEAD OF`      | Wird **anstatt** eines DML-Befehls auf einem View ausgeführt                 |
+
+👉 `BEFORE` eignet sich z. B. zur **Überprüfung oder Manipulation** von Daten, bevor sie gespeichert werden.  
+👉 `AFTER` wird häufig zur **Protokollierung** oder für **Folgeaktionen** genutzt.  
+👉 `INSTEAD OF` ist für **Views** nötig, da man auf Views nicht direkt schreiben kann.
+
+---
+
 ## 🟡 1. Normaler BEFORE/AFTER Trigger (Tabelle)
 
 Wird auf einer **Tabelle** definiert und reagiert auf INSERT, UPDATE oder DELETE.  
@@ -87,14 +105,20 @@ END;
 
 ---
 
-## 🧩 3. COMPOUND Trigger (Tabelle)
+## 🧩 3. Compound Trigger – Mehrere Triggerbereiche in einem
 
-Ein **Compound Trigger** kombiniert mehrere Triggerbereiche:
+Ein **Compound Trigger** kombiniert mehrere Triggerabschnitte in einem einzigen Objekt. Das ist besonders hilfreich, wenn du z. B. Daten aus der Tabelle brauchst, aber gleichzeitig auf einzelne Zeilen reagieren willst.
 
-- `BEFORE STATEMENT`
-- `BEFORE EACH ROW`
-- `AFTER EACH ROW`
-- `AFTER STATEMENT`
+### 🔗 Triggerbereiche im Compound Trigger
+
+| Abschnitt            | Wann er ausgeführt wird              | Typische Verwendung                                 |
+|----------------------|--------------------------------------|-----------------------------------------------------|
+| `BEFORE STATEMENT`   | **Einmal vor** der gesamten Aktion   | Maximalwerte, Initialisierungen, Vorbereitungen     |
+| `BEFORE EACH ROW`    | Vor **jeder betroffenen Zeile**      | Validierungen, Anpassungen der Zeile                |
+| `AFTER EACH ROW`     | Nach **jeder betroffenen Zeile**     | Protokollierung, Kettenreaktionen                   |
+| `AFTER STATEMENT`    | **Einmal nach** der gesamten Aktion  | Aufräumen, Ausgaben, Gesamtberechnungen             |
+
+> 🔄 So kannst du z. B. im `BEFORE STATEMENT` den höchsten Gehaltswert laden und ihn im `BEFORE EACH ROW` für jede eingefügte/aktualisierte Zeile als Grenze verwenden.
 
 ➡️ Ermöglicht z. B. Zugriff auf die Tabelle vor dem Zeilen-Trigger!
 
