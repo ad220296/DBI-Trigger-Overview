@@ -1,3 +1,9 @@
+---
+## 🔗 Direkt zu den Beispielen
+
+- 🔵 [INSTEAD OF Trigger Beispiele](https://github.com/ad220296/DBI-Instead-Trigger-)
+- 🧩 [Compound Trigger Beispiele](https://github.com/ad220296/DBI-Compound-Trigger-)
+---
 
 # 🔄 Vergleich & Beispiele: Trigger in PL/SQL
 
